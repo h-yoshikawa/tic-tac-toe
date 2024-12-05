@@ -1,6 +1,6 @@
 import { Square } from './Square';
 
-const Board = () => {
+export const Board = () => {
   return (
     <>
       <div className="status">Winner: hoge</div>
@@ -22,5 +22,3 @@ const Board = () => {
     </>
   );
 };
-
-export default Board;
