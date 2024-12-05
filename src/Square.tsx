@@ -1,5 +1,7 @@
-const Square = () => {
-  return <button className="square">1</button>;
+type Props = {
+  value: number;
 };
 
-export default Square;
+export const Square = ({ value }: Props) => {
+  return <button className="square">{value}</button>;
+};
