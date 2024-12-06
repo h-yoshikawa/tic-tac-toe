@@ -2,14 +2,30 @@ import { useState } from 'react';
 import { Board } from './Board';
 
 const Game = () => {
-  const [xIsNext, setXIsNext] = useState(true);
+  const [currentMove, setCurrentMove] = useState(0);
   const [history, setHistory] = useState([Array(9).fill(null)]);
-  const currentSquares = history[history.length - 1];
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
 
   const handlePlay = (nextSquares: string[]) => {
-    setHistory([...history, nextSquares]);
-    setXIsNext(!xIsNext);
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
   };
+
+  const jumpTo = (nextMove: number) => {
+    setCurrentMove(nextMove);
+  };
+
+  const moves = history.map((_, move): JSX.Element => {
+    const description = move === 0 ? 'goto game start' : `go to move #${move}`;
+
+    return (
+      <li key={move}>
+        <button onClick={() => jumpTo(move)}>{description}</button>
+      </li>
+    );
+  });
 
   return (
     <div className="game">
@@ -17,17 +33,7 @@ const Game = () => {
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        <ol>
-          <li>
-            <button>goto game start</button>
-          </li>
-          <li>
-            <button>goto game start</button>
-          </li>
-          <li>
-            <button>goto game start</button>
-          </li>
-        </ol>
+        <ol>{moves}</ol>
       </div>
     </div>
   );
