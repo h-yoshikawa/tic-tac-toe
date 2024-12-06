@@ -1,5 +1,5 @@
 type Props = {
-  value: number;
+  value: string;
   onSquareClick: () => void;
 };
 
