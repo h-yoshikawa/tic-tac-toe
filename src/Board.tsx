@@ -26,14 +26,14 @@ export const Board = ({ xIsNext, squares, onPlay }: Props) => {
     <>
       <div className="status">{status}</div>
       {[...Array(3).keys()].map((i) => {
-        const rows = [...Array(3).keys()].map((j) => {
+        const row = [...Array(3).keys()].map((j) => {
           const n = 3 * i + j;
           return <Square key={n} value={squares[n]} onSquareClick={() => handleSquareClick(n)} />;
         });
 
         return (
           <div key={i} className="board-row">
-            {rows}
+            {row}
           </div>
         );
       })}
