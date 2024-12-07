@@ -2,6 +2,8 @@
 
 React 公式ドキュメントに載っている三目並べのチュートリアルを実装した。
 
+[デモ](https://h-yoshikawa.github.io/tic-tac-toe/)
+
 ## 機能
 
 - 三目並べをプレイできる
