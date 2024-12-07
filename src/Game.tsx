@@ -18,8 +18,15 @@ const Game = () => {
     setCurrentMove(nextMove);
   };
 
-  const moves = history.map((_, move): JSX.Element => {
-    const description = move === 0 ? 'goto game start' : `go to move #${move}`;
+  const moves = history.map((squares, move): JSX.Element => {
+    const rowAndCol = { row: 0, col: 0 };
+    if (move > 0) {
+      const diffIndex = squares.findIndex((value, index) => value !== history[move - 1][index]);
+      rowAndCol.row = Math.floor(diffIndex / 3);
+      rowAndCol.col = diffIndex % 3;
+    }
+
+    const description = move === 0 ? 'goto game start' : `go to move #${move} (${rowAndCol.row}, ${rowAndCol.col})`;
 
     return move === currentMove ? (
       <li key={move}>
