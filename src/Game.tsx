@@ -20,7 +20,11 @@ const Game = () => {
   const moves = history.map((_, move): JSX.Element => {
     const description = move === 0 ? 'goto game start' : `go to move #${move}`;
 
-    return (
+    return move === currentMove ? (
+      <li key={move}>
+        <button>{`You are at move #${move}`}</button>
+      </li>
+    ) : (
       <li key={move}>
         <button onClick={() => jumpTo(move)}>{description}</button>
       </li>
