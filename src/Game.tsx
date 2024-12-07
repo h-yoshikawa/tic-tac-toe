@@ -4,6 +4,7 @@ import { Board } from './Board';
 const Game = () => {
   const [currentMove, setCurrentMove] = useState(0);
   const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [isAscending, setIsAscending] = useState(true);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
@@ -37,7 +38,8 @@ const Game = () => {
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        <ol>{moves}</ol>
+        <button onClick={() => setIsAscending(!isAscending)}>{isAscending ? '降順にする' : '昇順にする'}</button>
+        <ol>{isAscending ? moves : moves.reverse()}</ol>
       </div>
     </div>
   );
