@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Board } from './Board';
+
+import './Game.css';
+import { Board } from '../Board';
 
 const Game = () => {
   const [currentMove, setCurrentMove] = useState(0);

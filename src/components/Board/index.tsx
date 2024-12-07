@@ -1,5 +1,6 @@
-import { Square } from './Square';
-import { calculateWinner } from './calculateWinner';
+import { Square } from '../Square';
+import { calculateWinner } from '../../utility/calc/calculateWinner';
+import './Board.css';
 
 type Props = {
   xIsNext: boolean;
