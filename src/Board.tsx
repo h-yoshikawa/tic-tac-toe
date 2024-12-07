@@ -3,8 +3,8 @@ import { calculateWinner } from './calculateWinner';
 
 type Props = {
   xIsNext: boolean;
-  squares: string[];
-  onPlay: (currentSquares: string[]) => void;
+  squares: (string | null)[];
+  onPlay: (currentSquares: (string | null)[]) => void;
 };
 
 export const Board = ({ xIsNext, squares, onPlay }: Props) => {
@@ -20,7 +20,11 @@ export const Board = ({ xIsNext, squares, onPlay }: Props) => {
   };
 
   const winner = calculateWinner(squares);
-  const status = winner ? `Winner: ${winner}` : `Next Player: ${xIsNext ? 'X' : 'O'}`;
+  const status = winner?.winner
+    ? `Winner: ${winner.winner}`
+    : squares.includes(null)
+    ? `Next Player: ${xIsNext ? 'X' : 'O'}`
+    : '引き分け';
 
   return (
     <>
@@ -28,7 +32,14 @@ export const Board = ({ xIsNext, squares, onPlay }: Props) => {
       {[...Array(3).keys()].map((i) => {
         const row = [...Array(3).keys()].map((j) => {
           const n = 3 * i + j;
-          return <Square key={n} value={squares[n]} onSquareClick={() => handleSquareClick(n)} />;
+          return (
+            <Square
+              key={n}
+              className={`square ${winner?.winningLine.includes(n) ? 'win' : null}`}
+              value={squares[n]}
+              onSquareClick={() => handleSquareClick(n)}
+            />
+          );
         });
 
         return (

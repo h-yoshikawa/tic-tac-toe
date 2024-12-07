@@ -1,11 +1,12 @@
 type Props = {
-  value: string;
+  className: string;
+  value: string | null;
   onSquareClick: () => void;
 };
 
-export const Square = ({ value, onSquareClick }: Props) => {
+export const Square = ({ className, value, onSquareClick }: Props) => {
   return (
-    <button className="square" onClick={onSquareClick}>
+    <button className={className} onClick={onSquareClick}>
       {value}
     </button>
   );

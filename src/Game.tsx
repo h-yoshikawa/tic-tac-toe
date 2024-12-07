@@ -6,9 +6,9 @@ const Game = () => {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [isAscending, setIsAscending] = useState(true);
   const xIsNext = currentMove % 2 === 0;
-  const currentSquares = history[currentMove];
+  const currentSquares: (string | null)[] = history[currentMove];
 
-  const handlePlay = (nextSquares: string[]) => {
+  const handlePlay = (nextSquares: (string | null)[]) => {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
