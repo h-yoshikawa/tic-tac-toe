@@ -1,3 +1,5 @@
+import './Square.css';
+
 type Props = {
   className: string;
   value: string | null;
