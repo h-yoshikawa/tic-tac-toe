@@ -1,18 +1,21 @@
 import { JSX } from 'react';
 import calculateWinner from '../../utils/calculateWinner';
 import Square from '../Square';
-
-type Props = {
-  /** 次の着手が X かどうか */
-  xIsNext: boolean;
-  /** 盤面の状態 */
-  squares: (string | null)[];
-  /** マス目をクリックした後の新しい盤面の状態を `Game` コンポーネントに通知するハンドラ */
-  onPlay: (nextSquares: (string | null)[]) => void;
-};
+import { useHistory } from '../../hooks/useHistory';
+import { useHistoryDispatch } from '../../hooks/useHistoryDispatch';
+import { useCurrentMove } from '../../hooks/useCurrentMove';
+import { useCurrentMoveDispatch } from '../../hooks/useCurrentMoveDispatch';
 
 /** `Board` コンポーネント */
-export default function Board({ xIsNext, squares, onPlay }: Props): JSX.Element {
+export default function Board(): JSX.Element {
+  const history = useHistory();
+  const historyDispatch = useHistoryDispatch();
+  const currentMove = useCurrentMove();
+  const currentMoveDispatch = useCurrentMoveDispatch();
+
+  const xIsNext = currentMove % 2 === 0;
+  const squares = history[currentMove];
+
   function handleClick(i: number) {
     if (calculateWinner(squares) || squares[i]) {
       return;
@@ -23,7 +26,9 @@ export default function Board({ xIsNext, squares, onPlay }: Props): JSX.Element 
     } else {
       nextSquares[i] = 'O';
     }
-    onPlay(nextSquares);
+
+    historyDispatch({ type: 'play', nextSquares, currentMove });
+    currentMoveDispatch({ type: 'play', nextMove: currentMove + 1 });
   }
 
   const winner = calculateWinner(squares);
